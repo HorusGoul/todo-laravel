@@ -1,5 +1,23 @@
 <?php
 
+$dbUrl = env('DATABASE_URL', false);
+
+if ($dbUrl) {
+    $urlParts = parse_url($url);
+
+    $host = $urlParts->host;
+    $port = $urlParts->port;
+    $user = $urlParts->user;
+    $pass = $urlParts->pass;
+    $database = substr($urlParts->path, 1);
+} else {
+    $host = false;
+    $port = false;
+    $user = false;
+    $pass = false;
+    $database = false;
+}
+
 return [
 
     /*
@@ -41,11 +59,11 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'host' => env('DB_HOST', $host || '127.0.0.1'),
+            'port' => env('DB_PORT', $port || '3306'),
+            'database' => env('DB_DATABASE', $database || 'forge'),
+            'username' => env('DB_USERNAME', $user || 'forge'),
+            'password' => env('DB_PASSWORD', $pass || ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
@@ -56,11 +74,11 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'host' => env('DB_HOST', $host || '127.0.0.1'),
+            'port' => env('DB_PORT', $port || '5432'),
+            'database' => env('DB_DATABASE', $database || 'forge'),
+            'username' => env('DB_USERNAME', $user || 'forge'),
+            'password' => env('DB_PASSWORD', $pass || ''),
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',
