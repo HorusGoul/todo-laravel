@@ -3,7 +3,7 @@
 $dbUrl = env('DATABASE_URL', false);
 
 if ($dbUrl) {
-    $urlParts = parse_url($url);
+    $urlParts = parse_url($dbUrl);
 
     $host = $urlParts->host;
     $port = $urlParts->port;
