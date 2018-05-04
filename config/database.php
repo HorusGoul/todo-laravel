@@ -1,6 +1,6 @@
 <?php
 
-$dbUrl = env('DATABASE_URL', false);
+$dbUrl = env('CLEARDB_DATABASE_URL', false);
 
 if ($dbUrl) {
     $urlParts = parse_url($dbUrl);
