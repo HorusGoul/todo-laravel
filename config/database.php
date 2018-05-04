@@ -5,17 +5,17 @@ $dbUrl = env('CLEARDB_DATABASE_URL', false);
 if ($dbUrl) {
     $urlParts = parse_url($dbUrl);
 
-    $host = $urlParts->host;
-    $port = $urlParts->port;
-    $user = $urlParts->user;
-    $pass = $urlParts->pass;
-    $database = substr($urlParts->path, 1);
+    $host = $urlParts["host"];
+    $port = $urlParts["port"];
+    $user = $urlParts["user"];
+    $pass = $urlParts["pass"];
+    $database = substr($urlParts["path"], 1);
 } else {
-    $host = '127.0.0.1';
-    $port = 3306;
-    $user = 'forge';
-    $pass = '';
-    $database = 'forge';
+    $host = env('DB_HOST', 'localhost');
+    $port = env('DB_PORT', '');
+    $database = env('DB_DATABASE', 'forge');
+    $user = env('DB_USERNAME', 'forge');
+    $pass = env('DB_PASSWORD', '');
 }
 
 return [
@@ -59,11 +59,10 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', $host),
-            'port' => env('DB_PORT', $port),
-            'database' => env('DB_DATABASE', $database),
-            'username' => env('DB_USERNAME', $user),
-            'password' => env('DB_PASSWORD', $pass),
+            'host' => $host,
+            'database' => $database,
+            'username' => $user,
+            'password' => $pass,
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
