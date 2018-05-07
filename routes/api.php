@@ -58,3 +58,5 @@ Route::middleware('auth:api')->post('logout', function (Request $request) {
         'code' => 401
     ]);
 });
+
+Route::apiResource('task', 'TaskController');
