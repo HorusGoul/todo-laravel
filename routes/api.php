@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,15 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::post('signup', function (Request $request) {
+    return App\User::create([
+        'name' => $request->input('name'),
+        'email' => $request->input('email'),
+        'password' => Hash::make($request->input('password')),
+        'api_token' => str_random(60)
+    ]);
 });
 
 Route::post('login', function (Request $request) {
